@@ -170,7 +170,7 @@ handlePrimaryKey(primaryKey),
 	const output = `
 model ${name} {
 ${handleFields(fields)},
-${lastPieces}
+${lastPieces.join('\n')}
 }`;
 	return output;
 }
