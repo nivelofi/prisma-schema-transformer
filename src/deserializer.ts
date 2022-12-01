@@ -159,13 +159,18 @@ function deserializeModel(model: Model) {
 	const {name, uniqueFields, dbName, idFields, primaryKey} = model;
 	const fields = model.fields as unknown as Field[];
 
+
+  const lastPieces = [
+handleUniqueFieds(uniqueFields),
+handleDbName(dbName),
+handleIdFields(idFields),
+handlePrimaryKey(primaryKey),
+    ].filter(l => l.length > 0)
+
 	const output = `
 model ${name} {
-${handleFields(fields)}
-${handleUniqueFieds(uniqueFields)}
-${handleDbName(dbName)}
-${handleIdFields(idFields)}
-${handlePrimaryKey(primaryKey)}
+${handleFields(fields)},
+${lastPieces}
 }`;
 	return output;
 }
