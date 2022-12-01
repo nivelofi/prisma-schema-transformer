@@ -31,7 +31,10 @@
     "build": "rm -rf dist && tsc -p tscconfig.json",
     "test": "DATABASE_URL=postgresql://localhost:5432/prisma ava",
     "lint": "xo --fix",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "schema": "cp prisma/preSchema.prisma prisma/schema.prisma && yarn prisma-schema-transformer prisma/schema.prisma",
+    "migrate": "yarn schema && yarn prisma migrate dev --name",
+    "dev": "ts-node-dev -r tsconfig-paths/register invoke.ts"
   },
   "dependencies": {
     "@prisma/engine-core": "^3.6.0",
@@ -50,6 +53,7 @@
     "ava": "^3.8.2",
     "ts-node": "^8.10.1",
     "typescript": "^4.5.3",
+    "ts-node-dev": "^1.0.0-pre.44",
     "xo": "^0.32.0"
   }
 }

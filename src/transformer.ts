@@ -10,7 +10,7 @@ function singularizeModelName(modelName: string) {
 }
 
 function transformModel(model: Model) {
-	const {name, uniqueFields, idFields} = model;
+	const {name, uniqueFields, idFields, primaryKey} = model;
 
 	const fixModelName = produce(model, draftModel => {
 		if (name !== singularizeModelName(name)) {
@@ -68,7 +68,18 @@ function transformModel(model: Model) {
 		}
 	});
 
-	return fixIdFieldsName;
+  const fixPrimaryKey = produce(fixIdFieldsName, draftModel => {
+    const primaryKey = draftModel.primaryKey
+    if (!primaryKey) {
+      return
+    }
+    draftModel.primaryKey = {
+      name: primaryKey.name ? camelcase(primaryKey.name) : null,
+      fields: primaryKey.fields.map(f =>camelcase(f))
+    }
+  });
+
+	return fixPrimaryKey;
 }
 
 function transformEnum(enumm: DMMF.DatamodelEnum) {

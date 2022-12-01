@@ -133,6 +133,14 @@ function handleUniqueFieds(uniqueFields: string[][]) {
 	return uniqueFields.length > 0 ? uniqueFields.map(eachUniqueField => `@@unique([${eachUniqueField.join(', ')}])`).join('\n') : '';
 }
 
+function handlePrimaryKey(primaryKey: DMMF.PrimaryKey | null) {
+  if (!primaryKey) {
+    return ''
+  }
+  const fields = primaryKey.fields
+  return fields && fields.length > 0 ? `@@id([${fields.join(', ')}])` : '';
+}
+
 function handleDbName(dbName: string | null) {
 	return dbName ? `@@map("${dbName}")` : '';
 }
@@ -148,7 +156,7 @@ function handleProvider(provider: ConnectorType | string) {
 }
 
 function deserializeModel(model: Model) {
-	const {name, uniqueFields, dbName, idFields} = model;
+	const {name, uniqueFields, dbName, idFields, primaryKey} = model;
 	const fields = model.fields as unknown as Field[];
 
 	const output = `
@@ -157,6 +165,7 @@ ${handleFields(fields)}
 ${handleUniqueFieds(uniqueFields)}
 ${handleDbName(dbName)}
 ${handleIdFields(idFields)}
+${handlePrimaryKey(primaryKey)}
 }`;
 	return output;
 }
