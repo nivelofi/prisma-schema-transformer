@@ -1,25 +1,19 @@
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(name: "postsTousers", fields: [authorId], references: [id])
-  authorId  Int      @map("author_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
-
-  @@map("posts")
+model posts {
+  id         Int      @default(autoincrement()) @id
+  title      String
+  content    String?
+  published  Boolean  @default(false)
+  author     users    @relation(fields: [author_id], references: [id])
+  author_id  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  weight    Float
-  posts     Post[]   @relation(name: "postsTousers")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
-
-  @@map("users")
+model users {
+  id         Int      @default(autoincrement()) @id
+  email      String   @unique
+  weight     Float
+  posts      posts[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
