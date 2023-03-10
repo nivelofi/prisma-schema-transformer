@@ -24,10 +24,21 @@ function transformModel(model: Model) {
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
 		draftModel.fields = fields.map(field => produce(field, draftField => {
 			const {name, kind, type, relationFromFields, relationToFields, isList} = draftField;
-
+      if (name === 'fields_changed' || name === 'posts') {
+        console.log(`${JSON.stringify(draftField)}`)
+      }
+      console.log(`name: ${name} ${isList} ${kind} ${type} ${draftField.default}`)
 			// Transform field name
 			draftField.name = isList ? camelcase(pluralize.plural(name)) : camelcase(pluralize.singular(name));
 
+      if (draftField.isList) {
+        draftField.hasDefaultValue = undefined
+        draftField.default = undefined
+      }
+
+      if (name === 'fieldsChanged' || name === 'posts') {
+        console.log(`${JSON.stringify(draftField)}`)
+      }
 			if (draftField.name !== name) {
 				draftField.columnName = name;
 			}
@@ -53,6 +64,9 @@ function transformModel(model: Model) {
 			if (name === 'updated_at') {
 				draftField.isUpdatedAt = true;
 			}
+      if (name === 'fieldsChanged' || name === 'posts') {
+        console.log(`${JSON.stringify(draftField)}`)
+      }
 		})) as DMMF.Field[]; // Force type conversion
 	});
 

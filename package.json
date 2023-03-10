@@ -32,7 +32,7 @@
     "test": "DATABASE_URL=postgresql://localhost:5432/prisma ava",
     "lint": "xo --fix",
     "prepare": "yarn build",
-    "schema": "cp prisma/preSchema.prisma prisma/schema.prisma && yarn prisma-schema-transformer prisma/schema.prisma",
+    "schema": "cp fixtures/simple.prisma fixtures/newSimple.prisma && yarn prisma-schema-transformer fixtures/newSimple.prisma",
     "migrate": "yarn schema && yarn prisma migrate dev --name",
     "dev": "ts-node-dev -r tsconfig-paths/register invoke.ts"
   },

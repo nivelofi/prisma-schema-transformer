@@ -1,19 +1,48 @@
-model posts {
-  id         Int      @default(autoincrement()) @id
-  title      String
-  content    String?
-  published  Boolean  @default(false)
-  author     users    @relation(fields: [author_id], references: [id])
-  author_id  Int
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
+datasource postgresql {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model users {
-  id         Int      @default(autoincrement()) @id
-  email      String   @unique
-  weight     Float
-  posts      posts[]
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
+generator client {
+  provider        = "prisma-client-js"
+  output          = "node_modules/@prisma/client"
+  binaryTargets   = ["native"]
+  previewFeatures = ["orderByRelation", "selectRelationCount"]
+}
+
+enum PostStatuses {
+  hidden
+  visible
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String?
+  fields_changed String[] @default([])
+  posts          Post[]
+  Like           Like[]
+}
+
+model Post {
+  id        String       @id @default(cuid())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  published Boolean
+  title     String
+  content   String?
+  authorId  String?
+  author    User?        @relation(fields: [authorId], references: [id])
+  status    PostStatuses
+  Like      Like[]
+}
+
+model Like {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
 }
