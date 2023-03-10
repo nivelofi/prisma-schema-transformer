@@ -32,7 +32,7 @@ function transformModel(model: Model) {
 			draftField.name = isList ? camelcase(pluralize.plural(name)) : camelcase(pluralize.singular(name));
 
       if (draftField.isList) {
-        draftField.hasDefaultValue = undefined
+        draftField.hasDefaultValue = false
         draftField.default = undefined
       }
 
