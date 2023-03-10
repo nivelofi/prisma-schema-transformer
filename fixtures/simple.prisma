@@ -16,10 +16,10 @@ enum PostStatuses {
 }
 
 model User {
-  id             String   @id @default(cuid())
-  email          String   @unique
+  id             String         @id @default(cuid())
+  email          String         @unique
   name           String?
-  fields_changed String[] @default([])
+  fields_changed PostStatuses[] @default([])
   posts          Post[]
   Like           Like[]
 }

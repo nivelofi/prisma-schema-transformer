@@ -44,7 +44,7 @@ export interface Model extends DMMF.Model {
 const handlers = (type, kind) => {
 	return {
 		default: value => {
-			if (kind === 'enum') {
+			if (value && kind === 'enum') {
 				return `@default(${value})`;
 			}
 

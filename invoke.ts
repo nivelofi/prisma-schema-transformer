@@ -18,8 +18,8 @@ const outputSchemaPath = `./fixtures/${outputSchemaName}.prisma`;
   fs.writeFileSync(schemaPath, formatedSchemaString);
   const outputSchema = await fixPrismaFile(schemaPath)
   // console.log(`outputSchema: ${outputSchema}`)
-  const formatedOutputSchema = await formatSchema({schemaPath: outputSchema});
-  console.log(`formatedOutputSchema: ${formatedOutputSchema}`)
+  // const formatedOutputSchema = await formatSchema({schemaPath: outputSchema});
+  // console.log(`formatedOutputSchema: ${formatedOutputSchema}`)
   fs.writeFileSync(outputSchemaPath, outputSchema);
 
   // Validate
