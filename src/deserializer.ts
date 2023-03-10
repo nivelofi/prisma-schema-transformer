@@ -18,7 +18,7 @@ export interface Field {
 	relationName?: string;
 	default: boolean | any;
 	isUpdatedAt: boolean;
-	isReadOnly: string;
+	isReadOnly: boolean;
 	columnName?: string;
 }
 
@@ -30,7 +30,7 @@ export interface Attribute {
 	relationToFields?: any[];
 	relationOnDelete?: string;
 	relationName?: string;
-	isReadOnly: string;
+	isReadOnly: boolean;
 	default?: boolean | any;
 	isGenerated: boolean;
 	isUpdatedAt: boolean;

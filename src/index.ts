@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import {getDMMF, getConfig} from '@prisma/sdk';
+import {getDMMF, getConfig} from '@prisma/internals';
 import {datasourcesDeserializer, dmmfModelsdeserializer, dmmfEnumsDeserializer, dmmfModelTransformer, dmmfEnumTransformer, generatorsDeserializer, Model} from '.';
 
 /**
