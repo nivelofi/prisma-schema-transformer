@@ -44,7 +44,6 @@ export interface Model extends DMMF.Model {
 const handlers = (type, kind) => {
 	return {
 		default: value => {
-      console.log(`value: ${value}`)
 			if (kind === 'enum') {
 				return `@default(${value})`;
 			}
@@ -90,7 +89,6 @@ const handlers = (type, kind) => {
 // https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model#attributes
 function handleAttributes(attributes: Attribute, kind: DMMF.FieldKind, type: string) {
 	const {relationFromFields, relationToFields, relationName} = attributes;
-  console.log(`${relationName} ${Object.keys(attributes)}`)
 	if (kind === 'scalar') {
 		return `${Object.keys(attributes).map(each => handlers(type, kind)[each](attributes[each])).join(' ')}`;
 	}
@@ -112,7 +110,9 @@ function handleFields(fields: Field[]) {
 		.map(fields => {
 			const {name, kind, type, isRequired, isList, ...attributes} = fields;
 			if (kind === 'scalar') {
-        console.log(`name: ${name} ${isList}`)
+        if (name === 'fieldsChanged' || name === 'fields_changed'){
+        console.log(`name: ${name} ${isList} ${JSON.stringify(fields)}`)
+      }
 				return `  ${name} ${type}${isList ? '[]' : (isRequired ? '' : '?')} ${handleAttributes(attributes, kind, type)}`;
 			}
 
