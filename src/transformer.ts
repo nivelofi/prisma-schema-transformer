@@ -1,12 +1,12 @@
 import camelcase from "camelcase";
-import * as pluralize from "pluralize";
+import pluralize from "pluralize";
 import { produce } from "immer";
 
 import { Model, Field } from ".";
 import { DMMF } from "@prisma/generator-helper";
 
 function singularizeModelName(modelName: string) {
-  return camelcase(pluralize.singular(modelName), { pascalCase: true });
+  return camelcase(pluralize(modelName, 1), { pascalCase: true });
 }
 
 function transformModel(model: Model) {
