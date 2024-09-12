@@ -6,15 +6,20 @@ datasource postgresql {
 generator client {
   provider        = "prisma-client-js"
   output          = "node_modules/@prisma/client"
-  binaryTargets   = ["native", "darwin", "debian-openssl-1.1.x"]
+  binaryTargets   = ["native"]
   previewFeatures = ["orderByRelation", "selectRelationCount"]
+}
+
+enum PostStatuses {
+  hidden
+  visible
 }
 
 model User {
   id             String         @id @default(cuid())
   email          String         @unique
   name           String?
-  fields_changed PostStatuses[]
+  fields_changed PostStatuses[] @default([])
   posts          Post[]
   Like           Like[]
 }
@@ -40,9 +45,4 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
-}
-
-enum PostStatuses {
-  hidden
-  visible
 }
