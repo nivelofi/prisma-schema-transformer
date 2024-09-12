@@ -6,17 +6,16 @@ datasource postgresql {
 generator client {
   provider        = "prisma-client-js"
   output          = "node_modules/@prisma/client"
-  binaryTargets   = ["native", "darwin", "debian-openssl-1.1.x"]
+  binaryTargets   = ["native"]
   previewFeatures = ["orderByRelation", "selectRelationCount"]
 }
 
 model User {
-  id             String         @id @default(cuid())
-  email          String         @unique
-  name           String?
-  fields_changed PostStatuses[]
-  posts          Post[]
-  Like           Like[]
+  id    String  @id @default(cuid())
+  email String  @unique
+  name  String?
+  posts Post[]
+  Like  Like[]
 }
 
 model Post {

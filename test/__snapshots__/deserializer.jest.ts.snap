@@ -19,7 +19,6 @@ model User {
   id String  @id   @default(cuid())  
   email String @unique     
   name String?      
-  fieldsChangeds PostStatus[]        @map("fields_changed")
   posts Post[] @relation(name: "PostToUser")
   likes Like[] @relation(name: "LikeToUser")
 
@@ -144,7 +143,6 @@ model User {
   id String  @id   @default(cuid())  
   email String @unique     
   name String?      
-  fieldsChangeds PostStatus[]        @map("fields_changed")
   posts Post[] @relation(name: "PostToUser")
   likes Like[] @relation(name: "LikeToUser")
 

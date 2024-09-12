@@ -39,9 +39,6 @@
   },
   "dependencies": {
     "@babel/traverse": "7.25.6",
-    "@prisma/engine-core": "4.11.0",
-    "@prisma/generator-helper": "4.0.0",
-    "@prisma/internals": "4.0.0",
     "arg": "^4.1.3",
     "camelcase": "^6.0.0",
     "dotenv": "^8.2.0",
