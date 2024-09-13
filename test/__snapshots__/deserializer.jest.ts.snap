@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deserializer tests deserialized model is excluding users model 1`] = `
+"
+datasource postgresql {
+	provider = "postgresql"
+	url = env("DATABASE_URL")
+}
+
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+
+
+model User {
+  id String  @id   @default(cuid())  
+  email String @unique     
+  name String?      
+  posts Post[] @relation(name: "PostToUser")
+  likes Like[] @relation(name: "LikeToUser")
+
+
+
+}
+
+model Post {
+  id String  @id   @default(cuid())  
+  createdAt DateTime     @default(now())  
+  updatedAt DateTime      @updatedAt
+  published Boolean      
+  title String      
+  content String?      
+  authorId String?      
+  author User? @relation(name: "PostToUser", fields: [authorId], references: [id])
+  status PostStatus      
+  likes Like[] @relation(name: "LikeToPost")
+
+
+
+}
+
+model Like {
+  id String  @id   @default(cuid())  
+  userId String      
+  user User @relation(name: "LikeToUser", fields: [userId], references: [id])
+  postId String      
+  post Post @relation(name: "LikeToPost", fields: [postId], references: [id])
+@@unique([userId, postId])
+
+
+}
+
+
+
+enum PostStatus {
+	hidden
+	visible
+	@@map("PostStatuses")
+}"
+`;
+
+exports[`deserializer tests deserialized model is identical with the input from blog schema 1`] = `
+"
+datasource postgresql {
+	provider = "postgresql"
+	url = env("DATABASE_URL")
+}
+
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+
+
+model User {
+  id String  @id   @default(cuid())  
+  email String @unique     
+  name String?      
+  posts Post[] @relation(name: "PostToUser")
+  likes Like[] @relation(name: "LikeToUser")
+
+
+
+}
+
+model Post {
+  id String  @id   @default(cuid())  
+  createdAt DateTime     @default(now())  
+  updatedAt DateTime      @updatedAt
+  published Boolean      
+  title String      
+  content String?      
+  authorId String?      
+  author User? @relation(name: "PostToUser", fields: [authorId], references: [id])
+  status PostStatus      
+  likes Like[] @relation(name: "LikeToPost")
+
+
+
+}
+
+model Like {
+  id String  @id   @default(cuid())  
+  userId String      
+  user User @relation(name: "LikeToUser", fields: [userId], references: [id])
+  postId String      
+  post Post @relation(name: "LikeToPost", fields: [postId], references: [id])
+@@unique([userId, postId])
+
+
+}
+
+
+
+enum PostStatus {
+	hidden
+	visible
+	@@map("PostStatuses")
+}"
+`;
+
+exports[`deserializer tests deserialized model is identical with the input from simple schema 1`] = `
+"
+datasource postgresql {
+	provider = "postgresql"
+	url = env("DATABASE_URL")
+}
+
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+
+
+model User {
+  id String  @id   @default(cuid())  
+  email String @unique     
+  name String?      
+  posts Post[] @relation(name: "PostToUser")
+  likes Like[] @relation(name: "LikeToUser")
+
+
+
+}
+
+model Post {
+  id String  @id   @default(cuid())  
+  createdAt DateTime     @default(now())  
+  updatedAt DateTime      @updatedAt
+  published Boolean      
+  title String      
+  content String?      
+  authorId String?      
+  author User? @relation(name: "PostToUser", fields: [authorId], references: [id])
+  status PostStatus      
+  likes Like[] @relation(name: "LikeToPost")
+
+
+
+}
+
+model Like {
+  id String  @id   @default(cuid())  
+  userId String      
+  user User @relation(name: "LikeToUser", fields: [userId], references: [id])
+  postId String      
+  post Post @relation(name: "LikeToPost", fields: [postId], references: [id])
+@@unique([userId, postId])
+
+
+}
+
+
+
+enum PostStatus {
+	hidden
+	visible
+	@@map("PostStatuses")
+}"
+`;

@@ -10,12 +10,18 @@ generator client {
   previewFeatures = ["orderByRelation", "selectRelationCount"]
 }
 
+enum PostStatuses {
+  hidden
+  visible
+}
+
 model User {
-  id    String  @id @default(cuid())
-  email String  @unique
-  name  String?
-  posts Post[]
-  Like  Like[]
+  id             String         @id @default(cuid())
+  email          String         @unique
+  name           String?
+  fields_changed PostStatuses[] @default([])
+  posts          Post[]
+  Like           Like[]
 }
 
 model Post {
@@ -39,9 +45,4 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
-}
-
-enum PostStatuses {
-  hidden
-  visible
 }
