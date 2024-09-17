@@ -17,16 +17,6 @@
     "dist",
     "bin.js"
   ],
-  "ava": {
-    "typescript": {
-      "rewritePaths": {
-        "src/": ".build/"
-      }
-    },
-    "require": [
-      "ts-node/register"
-    ]
-  },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "test": "DATABASE_URL=postgresql://localhost:5432/prisma yarn run jest",
@@ -54,12 +44,10 @@
     "@prisma/internals": "4.12.0"
   },
   "devDependencies": {
-    "@ava/typescript": "^1.1.1",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.15.0",
     "@types/pluralize": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
-    "ava": "^3.8.2",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
@@ -74,6 +62,7 @@
   "resolutions": {
     "**/semver": "^7.5.3",
     "**/semver-regex": "^4.0.1",
-    "**/trim-newlines": "^4.0.1"
+    "**/trim-newlines": "^4.0.1",
+    "@prisma/internals/**/undici": "^5.28.0"
   }
 }
