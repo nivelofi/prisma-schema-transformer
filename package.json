@@ -63,6 +63,6 @@
     "**/semver": "^7.5.3",
     "**/semver-regex": "^4.0.1",
     "**/trim-newlines": "^4.0.1",
-    "@prisma/internals/**/undici": "^5.28.0"
+    "@prisma/internals/**/undici": "^5.29.0"
   }
 }
